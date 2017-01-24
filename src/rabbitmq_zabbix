@@ -166,7 +166,6 @@ class RabbitMQAPI(object):
             value = queue.get('message_stats', {}).get(item, 0)
             logging.debug("SENDER_DATA: - %s %s" % (key,value))
             tmpfile.write("- %s %s\n" % (key, value))
-			
 
     def _send_data(self, tmpfile):
         '''Send the queue data to Zabbix.'''
@@ -199,6 +198,38 @@ class RabbitMQAPI(object):
           return self.call_api('overview').get('message_stats', {}).get('deliver_get_details', {}).get('rate',0)
         elif item == 'message_stats_publish':
           return self.call_api('overview').get('message_stats', {}).get('publish_details', {}).get('rate',0)
+        elif item == 'message_stats_confirm':
+          return self.call_api('overview').get('message_stats', {}).get('confirm_details', {}).get('rate',0)
+        elif item == 'message_stats_publish_in':
+          return self.call_api('overview').get('message_stats', {}).get('publish_in_details', {}).get('rate',0)
+        elif item == 'message_stats_publish_out':
+          return self.call_api('overview').get('message_stats', {}).get('publish_out_details', {}).get('rate',0)
+        elif item == 'message_stats_deliver_no_ack':
+          return self.call_api('overview').get('message_stats', {}).get('deliver_no_ack_details', {}).get('rate',0)
+        elif item == 'message_stats_ack':
+          return self.call_api('overview').get('message_stats', {}).get('ack_details', {}).get('rate',0)
+        elif item == 'message_stats_redeliver':
+          return self.call_api('overview').get('message_stats', {}).get('redeliver_details', {}).get('rate',0)
+        elif item == 'message_stats_return':
+          return self.call_api('overview').get('message_stats', {}).get('return_details', {}).get('rate',0)
+        elif item == 'message_stats_get':
+          return self.call_api('overview').get('message_stats', {}).get('get_details', {}).get('rate',0)
+        elif item == 'object_totals_channels':
+          return self.call_api('overview').get('object_totals', {}).get('channels', 0)
+        elif item == 'object_totals_connections':
+          return self.call_api('overview').get('object_totals', {}).get('connections', 0)
+        elif item == 'object_totals_consumers':
+          return self.call_api('overview').get('object_totals', {}).get('consumers', 0)
+        elif item == 'object_totals_exchanges':
+          return self.call_api('overview').get('object_totals', {}).get('exchanges', 0)
+        elif item == 'object_totals_queues':
+          return self.call_api('overview').get('object_totals', {}).get('queues', 0)
+        elif item == 'queue_totals_messages':
+          return self.call_api('overview').get('queue_totals', {}).get('messages', 0)
+        elif item == 'queue_totals_messages_ready':
+          return self.call_api('overview').get('queue_totals', {}).get('messages_ready', 0)
+        elif item == 'queue_totals_messages_unacknowledged':
+          return self.call_api('overview').get('queue_totals', {}).get('messages_unacknowledged', 0)
         elif item == 'rabbitmq_version':
           return self.call_api('overview').get('rabbitmq_version', 'None')
         '''Return the value for a specific item in a node's details.'''
